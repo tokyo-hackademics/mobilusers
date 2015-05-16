@@ -337,8 +337,12 @@ public class WSClient {
         @Override
         protected void invoke(Object result) {
             String idsString = (String) result;
-            List<String> ids = Arrays.asList(idsString.split(","));
-            onSuccess(ids);
+            if (idsString == null || idsString.isEmpty()) {
+                onSuccess(new ArrayList<String>());
+            } else {
+                List<String> ids = Arrays.asList(idsString.split(","));
+                onSuccess(ids);
+            }
         }
     }
 }
