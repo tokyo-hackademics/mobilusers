@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -175,6 +176,10 @@ public class WSClient {
         public abstract void onSuccess(String id);
     }
 
+    private static abstract class CallbackWithManyIds extends Callback {
+        public abstract void onSuccess(List<String> ids);
+    }
+
     private static abstract class SimpleCallback extends Callback {
         public abstract void onSuccess();
     }
@@ -315,6 +320,25 @@ public class WSClient {
                 ret.add(Action.fromJSONObject(ja.optJSONObject(i)));
             }
             onSuccess(ret);
+        }
+    }
+
+    public void checkUsers(List<String> ids, CheckUsersCallback callback) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("ids", TextUtils.join(",", ids));
+            send("check_users", data, callback);
+        } catch (Throwable e) {
+            Log.e(TAG, "", e);
+        }
+    }
+
+    public static abstract class CheckUsersCallback extends CallbackWithManyIds {
+        @Override
+        protected void invoke(Object result) {
+            String idsString = (String) result;
+            List<String> ids = Arrays.asList(idsString.split(","));
+            onSuccess(ids);
         }
     }
 }

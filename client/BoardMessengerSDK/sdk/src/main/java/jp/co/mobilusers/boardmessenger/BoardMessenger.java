@@ -326,7 +326,31 @@ public class BoardMessenger {
     }
 
     public void checkUsers(List<String> userIds, final CheckUsersCallback callback) {
+        mWSClient.checkUsers(userIds, new WSClient.CheckUsersCallback() {
+            @Override
+            public void onSuccess(final List<String> ids) {
+                if (callback != null) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onSuccess(ids);
+                        }
+                    });
+                }
+            }
 
+            @Override
+            public void onError(int error) {
+                if (callback != null) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onError();
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public static abstract class CheckUsersCallback extends Callback  {

@@ -2,6 +2,7 @@ package jp.co.mobilusers.boardmessenger.test;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -9,6 +10,9 @@ import android.widget.Toast;
 
 import com.datdo.mobilib.util.MblUtils;
 import com.datdo.mobilib.util.MblViewUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardmessenger.model.Board;
@@ -39,6 +43,12 @@ public class BoardListActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 createBoard();
+            }
+        });
+        findViewById(R.id.check_users_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkUsers();
             }
         });
 
@@ -99,6 +109,25 @@ public class BoardListActivity extends BaseActivity {
             }
         });
         dialog.show();
+    }
+
+    private void checkUsers() {
+        BoardMessenger.getInstance().checkUsers(
+                Arrays.asList(new String[]{"d1", "d2", "d3"}),
+                new BoardMessenger.CheckUsersCallback() {
+                    @Override
+                    public void onSuccess(List<String> availableUserIds) {
+                        MblUtils.showAlert(
+                                "Available users",
+                                TextUtils.join(",", availableUserIds),
+                                null);
+                    }
+
+                    @Override
+                    public void onError() {
+                        MblUtils.showAlert("Error", "Failed to check", null);
+                    }
+                });
     }
 
     @Override

@@ -321,6 +321,34 @@ module.exports = function(server) {
       });
     });
 
+    // :::CHECK USERS
+    socket.on('check_users', function(obj) {
+
+      logRequest('check_users', currentUserId, obj);
+
+      var data = obj.data;
+
+      if (!data.ids) {
+        onInvalidParam(socket, obj);
+        return;
+      }
+
+      User.find({_id: {$in: data.ids.split(',')}})
+      .select('_id')
+      .exec(function(err, users) {
+        var ids = [];
+        for (var i = 0; i < users.length; i++) {
+          ids.push(users[i]._id);
+        }
+        var body = {
+          error: 0,
+          result: ids.join(",")
+        };
+        logResponse('check_users', currentUserId, obj, body);
+        socket.emit(obj.rid, body);
+      });
+    });
+
     // :::DISCONNECT
     socket.on('disconnect', function () {
 
