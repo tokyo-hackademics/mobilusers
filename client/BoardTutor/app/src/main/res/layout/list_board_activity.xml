@@ -11,14 +11,6 @@
         android:orientation="horizontal"
         android:background="#ACD" >
 
-        <ImageView
-            android:id="@+id/menuBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/header_menu_btn"
-            android:scaleType="fitCenter"
-            />
-
         <TextView
             android:id="@+id/titleTxt"
             android:gravity="center"
@@ -27,8 +19,17 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:textSize="20sp"
+            android:text="Available boards"
             android:textColor="#FFF"
           />
+
+        <ImageView
+            android:id="@+id/menuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/header_menu_btn"
+            android:scaleType="fitCenter"
+            />
 
     </LinearLayout>
 

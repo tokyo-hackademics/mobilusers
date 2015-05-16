@@ -1,17 +1,12 @@
 package jp.co.mobilusers.boardtutor.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datdo.mobilib.util.MblUtils;
-import com.datdo.mobilib.util.MblViewUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.listeners.OnLogoutListener;
@@ -52,8 +47,6 @@ public class ListBoardActivity extends BaseActivity {
 
     private SlidingMenu menu ;
 
-    @ViewById(R.id.titleTxt)
-    TextView title;
 
     SimpleFacebook simpleFacebook;
 
@@ -66,44 +59,9 @@ public class ListBoardActivity extends BaseActivity {
         reload();
         boardList.setAdapter(mAdapter);
         setupSlidingMenu();
-        title.setText("List available board");
     }
 
     private void createBoard() {
-//        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_create_board, null);
-//        final AlertDialog dialog = new AlertDialog.Builder(this)
-//                .setView(dialogView)
-//                .create();
-//        dialogView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String members = MblViewUtil.extractText((EditText) dialogView.findViewById(R.id.members_edit));
-//                String name = MblViewUtil.extractText((EditText) dialogView.findViewById(R.id.name_edit));
-//                MblUtils.showProgressDialog("Wait", false);
-//                BoardMessenger.getInstance().createBoard(
-//                        members.split(","),
-//                        name,
-//                        "#ffffff",
-//                        3000,
-//                        2000,
-//                        null,
-//                        new BoardMessenger.SimpleCallback() {
-//
-//                            @Override
-//                            public void onSuccess() {
-//                                MblUtils.hideProgressDialog();
-//                                dialog.dismiss();
-//                            }
-//
-//                            @Override
-//                            public void onError() {
-//                                MblUtils.hideProgressDialog();
-//                                MblUtils.showAlert("Error", "Failed to create board.", null);
-//                            }
-//                        });
-//            }
-//        });
-//        dialog.show();
         startActivity(new Intent(this, CreateBoardActivity_.class));
     }
 
@@ -120,7 +78,7 @@ public class ListBoardActivity extends BaseActivity {
 
     private void setupSlidingMenu(){
         menu = new SlidingMenu(this);
-        menu.setMode(SlidingMenu.LEFT);
+        menu.setMode(SlidingMenu.RIGHT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         menu.setShadowWidthRes(R.dimen.shadow_width);
         menu.setShadowDrawable(R.drawable.shadow);
@@ -174,7 +132,15 @@ public class ListBoardActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        MblUtils.closeApp(MainActivity_.class);
+        if(menu != null ){
+            if(menu.isMenuShowing()){
+                menu.showContent();
+            } else {
+                MblUtils.closeApp(MainActivity_.class);
+            }
+        } else {
+            MblUtils.closeApp(MainActivity_.class);
+        }
     }
 
     @Override

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BoardTutor</string>
     <string name="facebook_app_id">812453062164663</string>
+    <string-array name="boardSize">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+    </string-array>
 </resources>

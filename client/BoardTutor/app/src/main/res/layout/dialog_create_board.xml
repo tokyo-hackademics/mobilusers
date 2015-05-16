@@ -6,17 +6,55 @@
               android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/members_edit"
-        android:hint="Members, separated by comma"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
         android:id="@+id/name_edit"
-        android:hint="Name"
+        android:hint="RoomName"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Board background"
+            android:textStyle="bold"
+            android:gravity="left|center"
+            android:layout_weight="0.4"
+            />
+
+        <View
+            android:id="@+id/backgroundView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.6"
+            android:background="#AFA"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Choose board size"
+            android:textStyle="bold"
+            android:gravity="left|center"
+            android:layout_weight="0.4"
+            />
+       <Spinner
+           android:id="@+id/boardSpinner"
+           android:layout_width="0dp"
+           android:layout_weight="0.6"
+           android:layout_height="match_parent"
+           />
+    </LinearLayout>
 
     <Button
         android:id="@+id/create_button"
