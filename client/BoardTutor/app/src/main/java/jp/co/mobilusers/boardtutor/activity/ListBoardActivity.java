@@ -128,6 +128,9 @@ public class ListBoardActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         simpleFacebook = SimpleFacebook.getInstance(this);
+        if(menu != null && menu.isMenuShowing()){
+            menu.showContent();
+        }
     }
 
     @Override

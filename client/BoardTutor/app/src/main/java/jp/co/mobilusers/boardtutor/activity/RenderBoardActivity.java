@@ -34,6 +34,7 @@ public class RenderBoardActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
+        mBoardId = getIntent().getStringExtra(BOARD_ID);
         mRenderBoard = new RenderBoard(this, mBoardId);
         mRenderBoard.setLayoutParams(new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,

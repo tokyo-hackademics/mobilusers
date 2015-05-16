@@ -198,7 +198,6 @@ public class CreateBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String name = MblViewUtil.extractText((EditText) dialogView.findViewById(R.id.name_edit));
-                MblUtils.showProgressDialog("Wait", false);
                 BoardMessenger.getInstance().createBoard(
                         members,
                         name ,
@@ -210,13 +209,12 @@ public class CreateBoardActivity extends BaseActivity {
 
                             @Override
                             public void onSuccess() {
-                                MblUtils.hideProgressDialog();
                                 dialog.dismiss();
+                                finish();
                             }
 
                             @Override
                             public void onError() {
-                                MblUtils.hideProgressDialog();
                                 MblUtils.showAlert("Error", "Failed to create board.", null);
                             }
                         });

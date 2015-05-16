@@ -64,6 +64,9 @@ public class FriendAdapter extends MblBaseAdapter<User> {
             GoogleApi.downloadImage(user.getThumbnail(), new GoogleApi.DownloadImageCallback() {
                 @Override
                 public void onSuccess(String path) {
+                    if(!path.startsWith("file:///")){
+                        path = "file:///" + path;
+                    }
                     Picasso.with(MblUtils.getCurrentContext()).load(path).into(userIcon);
                 }
 
