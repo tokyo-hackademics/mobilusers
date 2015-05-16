@@ -74,16 +74,16 @@ public class RenderBoardActivity extends BaseActivity {
     }
 
     private void reload() {
-        MblUtils.showProgressDialog("Resuming board", false);
+        //MblUtils.showProgressDialog("Resuming board", false);
         mRenderBoard.resume(new RenderBoard.ResumeCallback() {
             @Override
             public void onSuccess() {
-                MblUtils.hideProgressDialog();
+          //      MblUtils.hideProgressDialog();
             }
 
             @Override
             public void onError() {
-                MblUtils.hideProgressDialog();
+//                MblUtils.hideProgressDialog();
                 MblUtils.showAlert("Error", "Failed to resume board", null);
             }
         });

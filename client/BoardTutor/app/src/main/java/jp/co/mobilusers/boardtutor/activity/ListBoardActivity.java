@@ -59,6 +59,7 @@ public class ListBoardActivity extends BaseActivity {
         reload();
         boardList.setAdapter(mAdapter);
         setupSlidingMenu();
+        BoardMessenger.getInstance().addListener(mListener);
     }
 
     private void createBoard() {
