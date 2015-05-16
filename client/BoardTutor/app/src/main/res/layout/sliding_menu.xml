@@ -23,13 +23,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create board"
-                android:textColor="#FFF"/>
+                android:background="#DDD"
+                />
             <Button
                 android:id="@+id/logout_btn"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Log out"
-                android:textColor="#FFF"/>
+                android:background="#DDD"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
