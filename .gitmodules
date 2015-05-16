@@ -1,0 +1,3 @@
+[submodule "client/mobilib"]
+	path = client/mobilib
+	url = https://github.com/datdojp/mobilib.git
