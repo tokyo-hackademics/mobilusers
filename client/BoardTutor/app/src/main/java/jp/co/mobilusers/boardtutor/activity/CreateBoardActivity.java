@@ -86,20 +86,34 @@ public class CreateBoardActivity extends BaseActivity {
         friendList.setAdapter(friendAdapter);
 
         // TODO : show correct user data
-        ArrayList<User> users = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            User testUser = new User();
-            testUser.setNickname("hoge " + i);
-            testUser.setThumbnail("");
-            users.add(testUser);
-        }
+        User.getAllUserIds();
+        BoardMessenger.getInstance().checkUsers(User.getAllUserIds(), new BoardMessenger.CheckUsersCallback() {
+            @Override
+            public void onSuccess(List<String> availableUserIds) {
+                List<User> userList = User.get(availableUserIds);
+                friendAdapter.changeData(userList);
+            }
 
-        friendAdapter.changeData(users);
+            @Override
+            public void onError() {
+
+            }
+        });
+
+//        ArrayList<User> users = new ArrayList<>();
+//        for(int i = 0; i < 10; i++){
+//            User testUser = new User();
+//            testUser.setNickname("hoge " + i);
+//            testUser.setThumbnail("");
+//            users.add(testUser);
+//        }
+//
+//        friendAdapter.changeData(users);
     }
 
     @Click(R.id.inviteBtn)
     void createBoard(){
-        final String[] members = getListInvitedFriend();
+        final String[] members = getListInvitedFriendId();
         if(members == null || members.length == 0){
             MblUtils.showAlert("Error", "You must invite at least one person !!!", null);
             return;
@@ -130,14 +144,22 @@ public class CreateBoardActivity extends BaseActivity {
         simpleFacebook = SimpleFacebook.getInstance(this);
     }
 
-    String[] getListInvitedFriend(){
+    String[] getListInvitedFriendId(){
+        return getListInvitedFriendContribute(true);
+    }
+
+    String[] getListInvitedFriendName() {
+        return getListInvitedFriendContribute(false);
+    }
+
+    String[] getListInvitedFriendContribute(boolean getId) {
         ArrayList<User> invitedUsers = friendAdapter.getInvitedUserList();
         if(invitedUsers == null || invitedUsers.size() == 0) {
             return null;
         }
         String[] invitedMember = new String[invitedUsers.size()];
         for(int i = 0; i < invitedUsers.size(); i ++){
-            invitedMember[i] = invitedUsers.get(i).getId();
+            invitedMember[i] = getId ? invitedUsers.get(i).getId() : invitedUsers.get(i).getNickname();
         }
         return invitedMember;
     }

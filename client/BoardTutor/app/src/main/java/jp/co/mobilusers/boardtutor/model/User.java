@@ -179,7 +179,7 @@ public class User {
         return u;
     }
 
-    public List<String> getAllUserIds() {
+    public static List<String> getAllUserIds() {
         Cursor cur = DBHelper.getDB().query(
                 TABLE,
                 new String[] { "id" },

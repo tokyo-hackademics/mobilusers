@@ -24,20 +24,6 @@ public class Application extends MblBaseApplication implements MblEventListener 
                 MblCommonEvents.GO_TO_BACKGROUND,
                 MblCommonEvents.GO_TO_FOREGROUND
         });
-
-        Permission[] permissions = new Permission[] {
-                Permission.USER_PHOTOS,
-                Permission.EMAIL,
-                Permission.PUBLISH_ACTION
-        };
-
-        SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
-                .setAppId(getResources().getString(R.string.facebook_app_id))
-                .setNamespace("boardTutor")
-                .setPermissions(permissions)
-                .build();
-
-        SimpleFacebook.setConfiguration(configuration);
     }
 
     @Override
