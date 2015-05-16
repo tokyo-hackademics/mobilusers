@@ -22,8 +22,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("boardtutor.keystore")
+            storePassword "1431819060"
+            keyAlias "boardtutor"
+            keyPassword "1431819060"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -33,6 +44,11 @@ android {
         dev {
             buildConfigField 'String', 'SERVER', '"http://192.168.3.35:3000"'
             buildConfigField 'String', 'GOOGLE_CLIENT_ID', '"534206704836-mbl1adtavklti5p2nv6jefglv2g956hj.apps.googleusercontent.com"';
+        }
+
+        prod {
+            buildConfigField 'String', 'SERVER', '"http://54.175.63.199:3000"'
+            buildConfigField 'String', 'GOOGLE_CLIENT_ID', '"534206704836-o27g12h0uo9b0n5gac8srgipej6qodfb.apps.googleusercontent.com"';
         }
     }
 
