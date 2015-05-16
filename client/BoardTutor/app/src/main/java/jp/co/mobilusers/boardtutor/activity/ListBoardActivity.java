@@ -143,7 +143,8 @@ public class ListBoardActivity extends BaseActivity {
                 simpleFacebook.logout(new OnLogoutListener() {
                     @Override
                     public void onLogout() {
-                        onBackPressed();
+                        finish();
+                        startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
                     }
 
                     @Override
