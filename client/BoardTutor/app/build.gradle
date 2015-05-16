@@ -32,6 +32,7 @@ android {
     productFlavors {
         dev {
             buildConfigField 'String', 'SERVER', '"http://192.168.3.35:3000"'
+            buildConfigField 'String', 'GOOGLE_CLIENT_ID', '"534206704836-mbl1adtavklti5p2nv6jefglv2g956hj.apps.googleusercontent.com"';
         }
     }
 

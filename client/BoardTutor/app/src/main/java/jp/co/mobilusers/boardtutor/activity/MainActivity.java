@@ -1,9 +1,7 @@
 package jp.co.mobilusers.boardtutor.activity;
 
 import android.content.Intent;
-
-
-import com.sromku.simple.fb.SimpleFacebook;
+import android.util.Log;
 
 import org.androidannotations.annotations.EActivity;
 
@@ -20,8 +18,8 @@ public class MainActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
 
-        if (BoardMessenger.getInstance().needAccount() || !SimpleFacebook.getInstance(this).isLogin()) {
-            startActivity(new Intent(this, LoginActivity_.class));
+        if (BoardMessenger.getInstance().needAccount()) {
+            startActivity(new Intent(this, LoginActivity.class));
         } else {
             BoardMessenger.getInstance().connect();
             startActivity(new Intent(this, ListBoardActivity_.class));

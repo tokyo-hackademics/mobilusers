@@ -6,4 +6,12 @@
         <item>Normal</item>
         <item>Large</item>
     </string-array>
+    <string name="wait">お待ち下さい</string>
+    <string name="alert_google_auth_failed_due_to_access_token">認証に失敗しました。今、もう一度試します。</string>
+    <string name="error">エラー</string>
+    <string name="alert_google_auth_failed_due_to_network_unavailable">ログインできるようにネットワーク接続をオンにしてください。</string>
+    <string name="alert_google_auth_failed_due_to_user_info_and_contacts">ユーザープロファイルと連絡先を取得できませんでした。今、もう一度試します。</string>
+    <string name="login_error">ログインが失敗しました。</string>
+    <string name="retry">リトライ</string>
+    <string name="later">後で</string>
 </resources>
