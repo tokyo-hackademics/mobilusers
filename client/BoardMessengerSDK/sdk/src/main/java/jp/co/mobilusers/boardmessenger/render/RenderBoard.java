@@ -354,7 +354,8 @@ public class RenderBoard extends SurfaceView {
                 List<Integer> subCoordinates = mFreeModeCoordinates.subList(
                         mFreeModeCoordinates.size()-s,
                         mFreeModeCoordinates.size());
-                action.setData(generateActionData(mMode.type, mPaint, subCoordinates));
+                Paint paint = mMode == Mode.ERASE ? mErasePaint : mPaint;
+                action.setData(generateActionData(mMode.type, paint, subCoordinates));
                 ExtraRenderer extraRenderer = null;
                 if (mMode == Mode.ERASE && event.getAction() == MotionEvent.ACTION_MOVE) {
                     final RectF rect = new RectF(
@@ -373,7 +374,7 @@ public class RenderBoard extends SurfaceView {
                 render(action, false, extraRenderer);
 
                 if (event.getAction() != MotionEvent.ACTION_MOVE) {
-                    String data = generateActionData(mMode.type, mPaint, mFreeModeCoordinates);
+                    String data = generateActionData(mMode.type, paint, mFreeModeCoordinates);
                     mBoardMessenger.sendAction(
                             mBoard.getId(),
                             action.getType(),
