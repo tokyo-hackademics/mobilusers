@@ -22,6 +22,8 @@ import android.view.SurfaceView;
 
 import com.nineoldandroids.animation.ValueAnimator;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -293,6 +295,13 @@ public class RenderBoard extends SurfaceView {
         mRunning = false;
         mBoardMessenger.removeListener(mBMListener);
         if (mRenderBitmap != null) {
+            try {
+                File cacheDir = getContext().getCacheDir();
+                String path = cacheDir.getAbsolutePath() + "/" + mBoard.getId();
+                mRenderBitmap.compress(Bitmap.CompressFormat.JPEG, 25, new FileOutputStream(path));
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
             mRenderBitmap.recycle();
             mRenderBitmap = null;
         }

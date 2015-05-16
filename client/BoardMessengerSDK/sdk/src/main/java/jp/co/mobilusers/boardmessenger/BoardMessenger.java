@@ -1,11 +1,14 @@
 package jp.co.mobilusers.boardmessenger;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -355,5 +358,11 @@ public class BoardMessenger {
 
     public static abstract class CheckUsersCallback extends Callback  {
         public abstract void onSuccess(List<String> availableUserIds);
+    }
+
+    public String getBoardThumbnailPath(String boardId) {
+        File cacheDir = mApplicationContext.getCacheDir();
+        String path = cacheDir.getAbsolutePath() + "/" + boardId;
+        return path;
     }
 }
