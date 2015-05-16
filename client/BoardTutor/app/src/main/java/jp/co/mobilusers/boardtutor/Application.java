@@ -9,6 +9,7 @@ import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.SimpleFacebookConfiguration;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
+import jp.co.mobilusers.boardtutor.auth.GoogleApi;
 
 
 public class Application extends MblBaseApplication implements MblEventListener {
@@ -17,6 +18,7 @@ public class Application extends MblBaseApplication implements MblEventListener 
     public void onCreate() {
         super.onCreate();
         BoardMessenger.init(this, BuildConfig.SERVER, null);
+        GoogleApi.init();
 
         MblEventCenter.addListener(this, new String[] {
                 MblCommonEvents.NETWORK_OFF,
