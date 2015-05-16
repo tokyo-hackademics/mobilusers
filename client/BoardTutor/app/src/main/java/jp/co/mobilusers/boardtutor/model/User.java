@@ -18,6 +18,10 @@ public class User {
         return null;
     }
 
+    public List<User> get(List<String> ids) {
+        return null;
+    }
+
     public String getId() {
         return mId;
     }
