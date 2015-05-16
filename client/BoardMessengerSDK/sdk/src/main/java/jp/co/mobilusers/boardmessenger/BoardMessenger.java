@@ -197,7 +197,8 @@ public class BoardMessenger {
 
     public boolean needAccount() {
         User user = User.get(mApplicationContext);
-        return user == null || user.getUserId() == null || user.getAccessToken() == null;
+        return user == null || user.getUserId() == null
+                || (user.getUserPassword() == null && user.getAccessToken() == null);
     }
 
     public void connect() {
