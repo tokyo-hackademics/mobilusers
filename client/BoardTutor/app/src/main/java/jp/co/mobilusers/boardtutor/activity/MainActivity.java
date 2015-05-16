@@ -18,7 +18,6 @@ public class MainActivity extends Activity{
     protected void onResume() {
         super.onResume();
 
-        // TODO : get correct instance
         if (BoardMessenger.getInstance().needAccount()) {
             startActivity(new Intent(this, LoginActivity_.class));
         } else {

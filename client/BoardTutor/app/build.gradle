@@ -1,6 +1,9 @@
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -34,7 +37,7 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile project(":../BoardMessengerSDK:sdk")
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-
+    compile project(":../SlidingMenu-master:library")
 }
 
 apt {
