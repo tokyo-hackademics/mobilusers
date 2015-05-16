@@ -25,7 +25,7 @@
 
         <ImageView
             android:id="@+id/menuBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:src="@drawable/header_menu_btn"
             android:scaleType="fitCenter"

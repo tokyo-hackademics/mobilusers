@@ -56,7 +56,6 @@ public class ListBoardActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
-        reload();
         boardList.setAdapter(mAdapter);
         setupSlidingMenu();
         BoardMessenger.getInstance().addListener(mListener);
@@ -128,6 +127,7 @@ public class ListBoardActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        reload();
         simpleFacebook = SimpleFacebook.getInstance(this);
         if(menu != null && menu.isMenuShowing()){
             menu.showContent();
