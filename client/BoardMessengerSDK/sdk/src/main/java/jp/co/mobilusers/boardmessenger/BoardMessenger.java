@@ -323,4 +323,12 @@ public class BoardMessenger {
     public static abstract class GetBoardActionsCallback extends Callback {
         public abstract void onSuccess(List<Action> actions);
     }
+
+    public void checkUsers(List<String> userIds, final CheckUsersCallback callback) {
+
+    }
+
+    public static abstract class CheckUsersCallback extends Callback  {
+        public abstract void onSuccess(List<String> availableUserIds);
+    }
 }
