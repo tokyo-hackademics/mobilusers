@@ -52,6 +52,7 @@ public class ListBoardActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
+        reload();
         boardList.setAdapter(mAdapter);
         setupSlidingMenu();
     }

@@ -50,9 +50,10 @@ public class LoginActivity extends BaseActivity {
                 // App code
                 Log.d(TAG, "login success with token: " + loginResult.getAccessToken().getToken());
                 BoardMessenger.getInstance().setAccount(loginResult.getAccessToken().getUserId(), loginResult.getAccessToken().getToken());
-
+                BoardMessenger.getInstance().connect();
                 // TODO : redirect to board list activity
-
+                startActivity(new Intent(LoginActivity.this, ListBoardActivity_.class));
+                finish();
             }
 
             @Override
