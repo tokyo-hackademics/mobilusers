@@ -689,9 +689,11 @@ public class RenderBoard extends SurfaceView {
                             return;
                         }
                         if (Mode.FREE.isType(a)) {
+                            setPaint(a, paint);
                             mRenderCanvas.drawPath(coordinatesToPath(coordinates), paint);
                         }
                         if (Mode.ERASE.isType(a)) {
+                            setPaint(a, erasePaint);
                             mRenderCanvas.drawPath(coordinatesToPath(coordinates), erasePaint);
                         }
                     }
