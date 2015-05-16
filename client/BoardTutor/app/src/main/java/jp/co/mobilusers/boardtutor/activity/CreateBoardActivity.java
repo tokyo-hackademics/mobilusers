@@ -75,7 +75,7 @@ public class CreateBoardActivity extends BaseActivity {
 //        simpleFacebook.getFriends(onFriendsListener);
         boardSizes[0] = new BoardSize(1500, 1000);
         boardSizes[1] = new BoardSize(3000, 2000);
-        boardSizes[2] = new BoardSize(6000, 4000);
+        boardSizes[2] = new BoardSize(4000, 4000);
         boardSize = boardSizes[1];
     }
 
