@@ -50,14 +50,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile project(":BoardMessengerSDK:sdk")
-    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile project(":SlidingMenu-master:library")
     compile project(':mobilib:Mobilib')
+    compile files('libs/simple.facebook-2.2.jar')
+    compile project(":facebook-android-sdk-3.14:facebook")
 }
 
 apt {

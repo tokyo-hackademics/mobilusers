@@ -21,8 +21,13 @@
 
         <TextView
             android:id="@+id/titleTxt"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
+            android:textSize="20sp"
+            android:textColor="#FFF"
           />
 
     </LinearLayout>
@@ -33,26 +38,4 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#ddd" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#000"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/create_board_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create board" />
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

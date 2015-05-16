@@ -2,16 +2,17 @@ package jp.co.mobilusers.boardtutor.activity;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ImageView;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.model.GraphUser;
+import com.sromku.simple.fb.Permission;
+import com.sromku.simple.fb.SimpleFacebook;
+import com.sromku.simple.fb.listeners.OnLoginListener;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -25,55 +26,78 @@ import jp.co.mobilusers.boardtutor.R;
 public class LoginActivity extends BaseActivity {
 
     @ViewById(R.id.login_button)
-    LoginButton loginButton;
+    ImageView loginButton;
 
-    CallbackManager callbackManager;
 
     private static final String TAG = LoginActivity.class.getName();
 
-    @AfterInject
-    void init(){
-        if(!FacebookSdk.isInitialized()){
-            FacebookSdk.sdkInitialize(getApplicationContext());
+    OnLoginListener loginListener = new OnLoginListener() {
+        @Override
+        public void onLogin() {
+            final Session session = Session.getActiveSession();
+            if (session != null && session.isOpened()) {
+                // If the session is open, make an API call to get user data
+                // and define a new callback to handle the response
+                Request request = Request.newMeRequest(session, new Request.GraphUserCallback() {
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        // If the response is successful
+                        if (session == Session.getActiveSession()) {
+                            if (user != null) {
+                                String user_ID = user.getId();//user id
+                                String accessToken = session.getAccessToken();
+                                Log.d(TAG, "login success with " + user_ID + " " + accessToken);
+                                BoardMessenger.getInstance().setAccount(user_ID, accessToken);
+                                BoardMessenger.getInstance().connect();
+                                startActivity(new Intent(LoginActivity.this, ListBoardActivity_.class));
+                                finish();
+                            }
+                        }
+                    }
+                });
+                Request.executeBatchAsync(request);
+            }
         }
-        if(callbackManager == null){
-            callbackManager = CallbackManager.Factory.create();
+
+        @Override
+        public void onNotAcceptingPermissions(Permission.Type type) {
+
         }
+
+        @Override
+        public void onThinking() {
+
+        }
+
+        @Override
+        public void onException(Throwable throwable) {
+
+        }
+
+        @Override
+        public void onFail(String s) {
+
+        }
+    };
+
+    SimpleFacebook simpleFacebook;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        simpleFacebook = SimpleFacebook.getInstance(this);
     }
 
-    @AfterViews
-    void initView(){
-        loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                Log.d(TAG, "login success with token: " + loginResult.getAccessToken().getToken());
-                BoardMessenger.getInstance().setAccount(loginResult.getAccessToken().getUserId(), loginResult.getAccessToken().getToken());
-                BoardMessenger.getInstance().connect();
-                // TODO : redirect to board list activity
-                startActivity(new Intent(LoginActivity.this, ListBoardActivity_.class));
-                finish();
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-                Log.d(TAG, "login cancelled");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-                Log.e(TAG, "login failure");
-            }
-        });
-
+    @Click(R.id.login_button)
+    void login(){
+        simpleFacebook.login(loginListener);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        simpleFacebook.onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

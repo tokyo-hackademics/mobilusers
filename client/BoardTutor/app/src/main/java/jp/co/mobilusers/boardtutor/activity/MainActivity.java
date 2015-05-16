@@ -2,9 +2,7 @@ package jp.co.mobilusers.boardtutor.activity;
 
 import android.content.Intent;
 
-import com.facebook.FacebookSdk;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EActivity;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
@@ -15,13 +13,6 @@ import jp.co.mobilusers.boardtutor.R;
  */
 @EActivity(R.layout.main_activity)
 public class MainActivity extends BaseActivity{
-
-    @AfterInject
-    void init(){
-        if(!FacebookSdk.isInitialized()){
-            FacebookSdk.sdkInitialize(getApplicationContext());
-        }
-    }
 
     @Override
     protected void onResume() {

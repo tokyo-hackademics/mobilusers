@@ -1,1 +1,1 @@
-include ':BoardMessengerSDK:sdk', ':BoardTutor:app', ':mobilib:Mobilib', ':SlidingMenu-master:library'
+include ':BoardMessengerSDK:sdk', ':BoardTutor:app', ':mobilib:Mobilib', ':SlidingMenu-master:library', ':facebook-android-sdk-3.14:facebook'
