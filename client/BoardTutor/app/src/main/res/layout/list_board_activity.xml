@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#ACD"
-        android:id="@+id/titleTxt"
-        />
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#ACD" >
+
+        <ImageView
+            android:id="@+id/menuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/header_menu_btn"
+            android:scaleType="fitCenter"
+            />
+
+        <TextView
+            android:id="@+id/titleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+          />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/boardList"
@@ -24,18 +39,19 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#000"
-        android:padding="10dp" >
+        android:padding="10dp">
 
-        <LinearLayout android:layout_weight="1"
-            android:orientation="vertical"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/create_board_button"
-                android:text="Create board"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Create board" />
 
         </LinearLayout>
     </ScrollView>

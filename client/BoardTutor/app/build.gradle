@@ -28,6 +28,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        dev {
+            buildConfigField 'String', 'SERVER', '"http://192.168.128.100:3000"'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
 }
 
 dependencies {
@@ -38,6 +50,7 @@ dependencies {
     compile project(":BoardMessengerSDK:sdk")
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile project(":SlidingMenu-master:library")
+    compile project(':mobilib:Mobilib')
 }
 
 apt {

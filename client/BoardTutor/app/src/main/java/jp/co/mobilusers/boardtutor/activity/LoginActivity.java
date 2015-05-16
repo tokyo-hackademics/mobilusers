@@ -1,6 +1,5 @@
 package jp.co.mobilusers.boardtutor.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
@@ -23,7 +22,7 @@ import jp.co.mobilusers.boardtutor.R;
  * Created by huytran on 5/16/15.
  */
 @EActivity(R.layout.login_activity)
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     @ViewById(R.id.login_button)
     LoginButton loginButton;
