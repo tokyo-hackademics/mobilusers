@@ -1,5 +1,7 @@
 package jp.co.mobilusers.boardmessenger.test;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -59,7 +61,56 @@ public class RenderBoardActivity extends BaseActivity {
 
         freeModeButton.performClick();
 
+        findViewById(R.id.select_stroke_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(RenderBoardActivity.this)
+                        .setItems(new String[]{"2", "4", "8"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                int strokeWidth = 0;
+                                if (i == 0) {
+                                    strokeWidth = 2;
+                                }
+                                if (i == 1) {
+                                    strokeWidth = 4;
+                                }
+                                if (i == 2) {
+                                    strokeWidth = 8;
+                                }
+                                mRenderBoard.setStrokeWidthInDp(strokeWidth);
+                                mRenderBoard.setEraseStrokeWidthInDp(strokeWidth * 2);
+                            }
+                        })
+                        .show();
 
+            }
+        });
+
+        findViewById(R.id.select_color_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(RenderBoardActivity.this)
+                        .setItems(new String[]{"RED", "BLUE", "BLACK"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                int color = 0;
+                                if (i == 0) {
+                                    color = 0xff0000;
+                                }
+                                if (i == 1) {
+                                    color = 0x0000ff;
+                                }
+                                if (i == 2) {
+                                    color = 0x0000;
+                                }
+                                mRenderBoard.setColorRGB(color);
+                            }
+                        })
+                        .show();
+
+            }
+        });
     }
 
     private void onModeButtonClicked(View button) {
