@@ -33,6 +33,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':sdk')
+    compile project(':BoardMessengerSDK:sdk')
     compile project(':mobilib:Mobilib')
 }

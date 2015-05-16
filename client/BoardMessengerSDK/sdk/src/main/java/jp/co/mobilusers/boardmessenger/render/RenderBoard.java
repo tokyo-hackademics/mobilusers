@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -16,18 +17,17 @@ import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.nineoldandroids.animation.ValueAnimator;
-import jp.co.mobilusers.boardmessenger.model.Board;
-import jp.co.mobilusers.boardmessenger.model.Action;
-import jp.co.mobilusers.boardmessenger.model.User;
-import jp.co.mobilusers.boardmessenger.BoardMessenger;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardmessenger.model.Action;
+import jp.co.mobilusers.boardmessenger.model.Board;
 
 
 public class RenderBoard extends SurfaceView {
@@ -262,6 +262,23 @@ public class RenderBoard extends SurfaceView {
                 return true;
             }
         });
+
+        getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder surfaceHolder) {}
+
+            @Override
+            public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {}
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+                if (Build.VERSION.SDK_INT < 18) {
+                    mHandlerThread.quit();
+                } else {
+                    mHandlerThread.quitSafely();
+                }
+            }
+        });
     }
 
     @Override
@@ -274,10 +291,10 @@ public class RenderBoard extends SurfaceView {
     @Override
     protected void onDetachedFromWindow() {
         mRunning = false;
-        mHandlerThread.quit();
         mBoardMessenger.removeListener(mBMListener);
         if (mRenderBitmap != null) {
             mRenderBitmap.recycle();
+            mRenderBitmap = null;
         }
         super.onDetachedFromWindow();
     }
@@ -354,7 +371,8 @@ public class RenderBoard extends SurfaceView {
                 List<Integer> subCoordinates = mFreeModeCoordinates.subList(
                         mFreeModeCoordinates.size()-s,
                         mFreeModeCoordinates.size());
-                action.setData(generateActionData(mMode.type, mPaint, subCoordinates));
+                Paint paint = mMode == Mode.ERASE ? mErasePaint : mPaint;
+                action.setData(generateActionData(mMode.type, paint, subCoordinates));
                 ExtraRenderer extraRenderer = null;
                 if (mMode == Mode.ERASE && event.getAction() == MotionEvent.ACTION_MOVE) {
                     final RectF rect = new RectF(
@@ -373,7 +391,7 @@ public class RenderBoard extends SurfaceView {
                 render(action, false, extraRenderer);
 
                 if (event.getAction() != MotionEvent.ACTION_MOVE) {
-                    String data = generateActionData(mMode.type, mPaint, mFreeModeCoordinates);
+                    String data = generateActionData(mMode.type, paint, mFreeModeCoordinates);
                     mBoardMessenger.sendAction(
                             mBoard.getId(),
                             action.getType(),
@@ -638,7 +656,7 @@ public class RenderBoard extends SurfaceView {
 
     private void resume(final List<Action> actions, final ResumeCallback callback) {
 
-        if (getWidth() == 0 || getHeight() == 0) {
+        if (getWidth() == 0 || getHeight() == 0 || !mRunning) {
             mMainThreaHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -680,6 +698,7 @@ public class RenderBoard extends SurfaceView {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
+
                 Canvas canvas = getHolder().lockCanvas();
                 for (final Action a : actions) {
                     if (Mode.FREE.isType(a) || Mode.ERASE.isType(a)) {
@@ -688,9 +707,11 @@ public class RenderBoard extends SurfaceView {
                             return;
                         }
                         if (Mode.FREE.isType(a)) {
+                            setPaint(a, paint);
                             mRenderCanvas.drawPath(coordinatesToPath(coordinates), paint);
                         }
                         if (Mode.ERASE.isType(a)) {
+                            setPaint(a, erasePaint);
                             mRenderCanvas.drawPath(coordinatesToPath(coordinates), erasePaint);
                         }
                     }

@@ -1,1 +1,1 @@
-include ':sdk', ':sdktest', ':mobilib:Mobilib'
+include ':sdk', ':sdktest'
