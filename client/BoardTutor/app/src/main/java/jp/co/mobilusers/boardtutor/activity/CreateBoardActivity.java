@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.datdo.mobilib.util.MblUtils;
 import com.datdo.mobilib.util.MblViewUtil;
@@ -102,7 +101,7 @@ public class CreateBoardActivity extends BaseActivity {
     void createBoard(){
         final String[] members = getListInvitedFriend();
         if(members == null || members.length == 0){
-            Toast.makeText(this, "You must invite at least one person !!!", Toast.LENGTH_SHORT).show();
+            MblUtils.showAlert("Error", "You must invite at least one person !!!", null);
             return;
         }
 

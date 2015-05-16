@@ -89,7 +89,7 @@ public class RenderBoardActivity extends BaseActivity {
     }
 
     public static void start(String boardId) {
-        Intent intent = new Intent(MblUtils.getCurrentContext(), RenderBoardActivity.class);
+        Intent intent = new Intent(MblUtils.getCurrentContext(), RenderBoardActivity_.class);
         intent.putExtra(BOARD_ID, boardId);
         MblUtils.getCurrentContext().startActivity(intent);
     }
