@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import jp.co.mobilusers.boardtutor.R;
+import jp.co.mobilusers.boardtutor.auth.GoogleApi;
 import jp.co.mobilusers.boardtutor.model.User;
 
 /**
@@ -56,8 +57,21 @@ public class FriendAdapter extends MblBaseAdapter<User> {
             }
         });
 
+        final ImageView userIcon = (ImageView) view.findViewById(R.id.userIcon);
+
         if(user.getThumbnail() != null && !user.getThumbnail().isEmpty()) {
-            Picasso.with(MblUtils.getCurrentContext()).load(user.getThumbnail()).into((ImageView) view.findViewById(R.id.userIcon));
+//            Picasso.with(MblUtils.getCurrentContext()).load(user.getThumbnail()).into((ImageView) view.findViewById(R.id.userIcon));
+            GoogleApi.downloadImage(user.getThumbnail(), new GoogleApi.DownloadImageCallback() {
+                @Override
+                public void onSuccess(String path) {
+                    Picasso.with(MblUtils.getCurrentContext()).load(path).into(userIcon);
+                }
+
+                @Override
+                public void onError() {
+                    Log.d("","");
+                }
+            });
         }
         return view;
     }
