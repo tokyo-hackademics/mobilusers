@@ -19,15 +19,13 @@ import android.view.ScaleGestureDetector;
 import android.view.SurfaceView;
 
 import com.nineoldandroids.animation.ValueAnimator;
-import jp.co.mobilusers.boardmessenger.model.Board;
-import jp.co.mobilusers.boardmessenger.model.Action;
-import jp.co.mobilusers.boardmessenger.model.User;
-import jp.co.mobilusers.boardmessenger.BoardMessenger;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardmessenger.model.Action;
+import jp.co.mobilusers.boardmessenger.model.Board;
 
 
 public class RenderBoard extends SurfaceView {
