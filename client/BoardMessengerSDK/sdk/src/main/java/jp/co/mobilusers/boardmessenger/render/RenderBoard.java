@@ -134,10 +134,10 @@ public class RenderBoard extends SurfaceView {
         mBackgroundColor = 0xffffffff;
         int reversedBackgroundColor = 0xff000000;
         if (mBoard.getBackground() != null) {
-            if (mBoard.getBackground().matches("^#[0-9a-f]{6}$")) {
+            if (mBoard.getBackground().matches("^#[0-9a-fA-F]{6}$")) {
                 mBackgroundColor = Integer.parseInt(mBoard.getBackground().replace("#", ""), 16);
             }
-            if (mBoard.getBackground().matches("^#[0-9a-f]{8}$")) {
+            if (mBoard.getBackground().matches("^#[0-9a-fA-F]{8}$")) {
                 mBackgroundColor = Integer.parseInt(mBoard.getBackground().replace("#", "").substring(2), 16);
             }
             reversedBackgroundColor = 0xffffffff - mBackgroundColor;
