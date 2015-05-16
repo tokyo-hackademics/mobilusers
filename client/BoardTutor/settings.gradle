@@ -1,1 +1,1 @@
-include ':app',':../BoardMessengerSDK:sdk', ':../SlidingMenu-master:library'
+include ':app'
