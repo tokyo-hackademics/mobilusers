@@ -16,6 +16,10 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardmessenger.model.Action;
 import jp.co.mobilusers.boardmessenger.model.Board;
@@ -56,7 +60,21 @@ public class ListBoardActivity extends BaseActivity {
     private SlidingMenu menu ;
 
     private void reload() {
-        mAdapter.changeData(BoardMessenger.getInstance().getAllBoards());
+        List<Board> boards = BoardMessenger.getInstance().getAllBoards();
+        Collections.sort(boards, new Comparator<Board>() {
+            @Override
+            public int compare(Board b1, Board b2) {
+                long d = b2.getLastActionTime() - b1.getLastActionTime();
+                if (d < 0) {
+                    return -1;
+                }
+                if (d > 0) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        mAdapter.changeData(boards);
     }
 
     @AfterViews

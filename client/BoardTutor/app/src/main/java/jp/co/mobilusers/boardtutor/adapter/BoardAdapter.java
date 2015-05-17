@@ -13,7 +13,9 @@ import com.datdo.mobilib.base.MblBaseAdapter;
 import com.datdo.mobilib.util.MblUtils;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
@@ -48,6 +50,7 @@ public class BoardAdapter extends MblBaseAdapter<Board> {
 
         ((TextView) view.findViewById(R.id.name_text)).setText(board.getName());
         ((TextView) view.findViewById(R.id.members_text)).setText(TextUtils.join(", ", userNameList));
+        ((TextView) view.findViewById(R.id.timeAgo)).setText(getStandardTime(board.getLastActionTime()));
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,5 +79,30 @@ public class BoardAdapter extends MblBaseAdapter<Board> {
             memberNames[i] = userList.get(i).getNickname();
         }
         return memberNames;
+    }
+
+    //Convert Time
+    public static String getStandardTime(long timeInput){
+        long currentTime = System.currentTimeMillis();
+        long delta = currentTime - timeInput * 1000;
+        if(delta >= 0 && delta < 10000){
+            return delta/1000  + " seconds ago";
+        }else if(delta >= 10 && delta < 60000){
+            return "about a minute ago";
+        }else if(delta >= 60000 && delta<3600000){
+            return delta/1000/60  + " minutes ago";
+        }else if(delta >= 3600000 && delta < 7200000){
+            return "a hour ago";
+        }else if(delta >= 7200000 && delta < 86400000){
+            return delta/1000/60/60  + " hours ago";
+        }else if(delta >= 86400000 && delta < 172800000){
+            return "about a day ago";
+        }else if(delta >= 172800000 && delta < 2073600000){
+            return delta/1000/60/60/24  + " days ago";
+        }else{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date resultdate = new Date(timeInput);
+            return  sdf.format(resultdate);
+        }
     }
 }
