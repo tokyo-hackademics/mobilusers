@@ -93,6 +93,7 @@ public class ListBoardActivity extends BaseActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BoardMessenger.getInstance().logout();
                 finish();
                 startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
             }
