@@ -150,7 +150,7 @@ public class Action {
         long time = -1;
         if (cur.moveToFirst()) {
             String id = cur.getString(0);
-            time = Integer.parseInt(id.substring(0, 8), 16) * 1000;
+            time = Long.parseLong(id.substring(0, 8), 16) * 1000;
         }
         cur.close();
         return time;
