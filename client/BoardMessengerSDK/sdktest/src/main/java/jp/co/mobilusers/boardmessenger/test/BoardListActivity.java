@@ -51,6 +51,13 @@ public class BoardListActivity extends BaseActivity {
                 checkUsers();
             }
         });
+        findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BoardMessenger.getInstance().logout();
+                finish();
+            }
+        });
 
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(mAdapter);

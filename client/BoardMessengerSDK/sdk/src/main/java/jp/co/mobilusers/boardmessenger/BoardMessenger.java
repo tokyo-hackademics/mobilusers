@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import jp.co.mobilusers.boardmessenger.model.Board;
 import jp.co.mobilusers.boardmessenger.model.Action;
+import jp.co.mobilusers.boardmessenger.model.DBHelper;
 import jp.co.mobilusers.boardmessenger.model.User;
 import jp.co.mobilusers.boardmessenger.ws.WSClient;
 
@@ -366,5 +367,8 @@ public class BoardMessenger {
         return path;
     }
 
-    public void logout() {}
+    public void logout() {
+        DBHelper.dropAndCreateTable(mApplicationContext);
+        disconnect();
+    }
 }

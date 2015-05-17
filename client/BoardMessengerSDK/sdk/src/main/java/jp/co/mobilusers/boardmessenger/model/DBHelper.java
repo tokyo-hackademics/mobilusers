@@ -7,7 +7,7 @@ import jp.co.mobilusers.boardmessenger.model.Board;
 import jp.co.mobilusers.boardmessenger.model.Action;
 import jp.co.mobilusers.boardmessenger.model.User;
 
-class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "BoardMessengerSDK.db";
     private static final int DB_VERSION = 1;
     private static DBHelper sInstance;
@@ -48,5 +48,14 @@ class DBHelper extends SQLiteOpenHelper {
         Board.dropTable(db);
         Action.dropTable(db);
         User.dropTable(db);
+    }
+
+    public static void dropAndCreateTable(Context context) {
+        SQLiteDatabase db = getDB(context);
+        db.beginTransaction();
+        dropTables(db);
+        createTables(db);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 }
