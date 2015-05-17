@@ -16,45 +16,76 @@
             android:padding="5dp" >
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/free_mode_button"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="Free"
-                android:textSize="8sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:padding="10dp"
-                android:background="@drawable/mode_button_bg"/>
+                android:background="@drawable/free_btn"/>
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/erase_mode_button"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:text="Erase"
-                android:textSize="8sp"
                 android:padding="10dp"
-                android:background="@drawable/mode_button_bg"/>
+                android:background="@drawable/erase_btn"/>
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/select_stroke_button"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:text="Stroke"
-                android:textSize="8sp"
                 android:padding="10dp"
-                android:background="@drawable/mode_button_bg"/>
+                android:background="@drawable/stroke_btn"/>
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/select_color_button"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:text="Color"
-                android:textSize="8sp"
                 android:padding="10dp"
-                android:background="@drawable/mode_button_bg"/>
+                android:background="@drawable/color_btn"/>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/userIcon1"
+                />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/userIcon2"
+                />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/userIcon3"
+                />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/userIcon4"
+                />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/userIcon5"
+                />
+
+         </LinearLayout>
     </ScrollView>
 
     <FrameLayout
