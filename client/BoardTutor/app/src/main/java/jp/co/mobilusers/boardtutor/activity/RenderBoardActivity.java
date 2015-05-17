@@ -20,6 +20,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -188,21 +189,22 @@ public class RenderBoardActivity extends BaseActivity {
         List<User> userList = User.get(Arrays.asList(memberIds));
         final ImageView[] userIcons = {userIcon1, userIcon2, userIcon3, userIcon4, userIcon5};
         int limit = userList.size() <= 5 ? userList.size() : 5;
+        final ArrayList<Integer> selectedIndex = new ArrayList<>();
         for(int i = 0; i < limit; i ++) {
             if(userList.get(i).getId().equals(currentUserId)){
                 continue;
             }
             String userIconPath = userList.get(i).getThumbnail();
             final int index = i;
+            selectedIndex.add(index);
             GoogleApi.downloadImage(userIconPath, new GoogleApi.DownloadImageCallback() {
                 @Override
                 public void onSuccess(String path) {
                     if (!path.startsWith("file:///")) {
                         path = "file:///" + path;
                     }
-                    Picasso.with(MblUtils.getCurrentContext()).load(path).placeholder(
-                            getResources().getDrawable(R.drawable.default_user_icon)
-                    ).into(userIcons[index]);
+                    Picasso.with(MblUtils.getCurrentContext()).load(path)
+                            .into(userIcons[index]);
                 }
 
                 @Override
@@ -210,6 +212,11 @@ public class RenderBoardActivity extends BaseActivity {
 
                 }
             });
+        }
+        for(int i = 0; i < 5; i ++){
+            if(!selectedIndex.contains(i)){
+                userIcons[i].setVisibility(View.GONE);
+            }
         }
     }
 }
