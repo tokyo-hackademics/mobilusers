@@ -240,4 +240,8 @@ public class User {
     public void setMe(boolean isMe) {
         this.isMe = isMe;
     }
+
+    public static void clearData() {
+        DBHelper.getDB().delete(TABLE, null, null);
+    }
 }

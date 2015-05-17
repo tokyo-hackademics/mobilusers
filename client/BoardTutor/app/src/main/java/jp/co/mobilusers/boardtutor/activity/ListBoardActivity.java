@@ -18,6 +18,7 @@ import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardmessenger.model.Board;
 import jp.co.mobilusers.boardtutor.R;
 import jp.co.mobilusers.boardtutor.adapter.BoardAdapter;
+import jp.co.mobilusers.boardtutor.model.User;
 
 /**
  * Created by huytran on 5/16/15.
@@ -94,6 +95,7 @@ public class ListBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 BoardMessenger.getInstance().logout();
+                User.clearData();
                 finish();
                 startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
             }
