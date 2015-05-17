@@ -2,6 +2,8 @@ package jp.co.mobilusers.boardtutor.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
+import jp.co.mobilusers.boardmessenger.model.Action;
 import jp.co.mobilusers.boardmessenger.model.Board;
 import jp.co.mobilusers.boardtutor.R;
 import jp.co.mobilusers.boardtutor.adapter.BoardAdapter;
@@ -40,6 +43,12 @@ public class ListBoardActivity extends BaseActivity {
         @Override
         public void onNewBoard(Board board) {
             MblUtils.showToast("New board: " + board.getName(), Toast.LENGTH_SHORT);
+            reload();
+        }
+
+        @Override
+        public void onNewAction(Action action) {
+            super.onNewAction(action);
             reload();
         }
     };
@@ -96,6 +105,8 @@ public class ListBoardActivity extends BaseActivity {
             public void onClick(View view) {
                 BoardMessenger.getInstance().logout();
                 User.clearData();
+                CookieSyncManager.createInstance(getApplicationContext()).sync();
+                CookieManager.getInstance().removeAllCookie();
                 finish();
                 startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
             }
