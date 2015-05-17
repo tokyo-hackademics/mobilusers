@@ -37,6 +37,7 @@ Build
 ---
 
 Types: `debug`, `release`
+
 Flavors: `dev`, `prod`
 
 ### Build dev-debug (for development)
