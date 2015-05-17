@@ -366,4 +366,5 @@ public class BoardMessenger {
         return path;
     }
 
+    public void logout() {}
 }
