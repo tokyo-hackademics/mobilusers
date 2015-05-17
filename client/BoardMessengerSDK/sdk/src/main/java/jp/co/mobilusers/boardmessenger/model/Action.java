@@ -138,6 +138,24 @@ public class Action {
         return a;
     }
 
+    static long getBoardLastActionTime(Context context, String boardId) {
+        Cursor cur = DBHelper.getDB(context).query(
+                TABLE,
+                new String[] { COL_ID },
+                COL_BOARD_ID + " = ?",
+                new String[] { boardId },
+                null, null,
+                COL_ID + " DESC",
+                "1");
+        long time = -1;
+        if (cur.moveToFirst()) {
+            String id = cur.getString(0);
+            time = Integer.parseInt(id.substring(0, 8), 16) * 1000;
+        }
+        cur.close();
+        return time;
+    }
+
     public String getId() {
         return mId;
     }

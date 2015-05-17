@@ -20,7 +20,7 @@ public class Board {
     private int         mWidth;
     private int         mHeight;
     private String      mExtra;
-    private long        mLastActionId; // transparent, not store to DB
+    private long        mLastActionTime; // transparent, not store to DB
 
     private static final String TABLE           = "board";
     private static final String COL_ID          = "id";
@@ -59,7 +59,6 @@ public class Board {
         board.mWidth = json.optInt("width");
         board.mHeight = json.optInt("height");
         board.mExtra = json.optString("extra");
-        board.mLastActionId = json.optLong("last_action_id");
         return board;
     }
 
@@ -113,8 +112,12 @@ public class Board {
         db.endTransaction();
     }
 
+
+
     public static Board get(Context context, String id) {
-        Cursor cur = DBHelper.getDB(context).query(
+        SQLiteDatabase db = DBHelper.getDB(context);
+        db.beginTransaction();
+        Cursor cur = db.query(
                 TABLE,
                 null,
                 COL_ID + " = ?",
@@ -126,18 +129,27 @@ public class Board {
         Board b = null;
         if (cur.moveToFirst()) {
             b = fromCursor(cur);
+            b.mLastActionTime = Action.getBoardLastActionTime(context, b.getId());
         }
         cur.close();
+        db.setTransactionSuccessful();
+        db.endTransaction();
         return b;
     }
 
     public static List<Board> getAll(Context context) {
-        Cursor cur = DBHelper.getDB(context).query(TABLE, null, null, null, null, null, null);
+        SQLiteDatabase db = DBHelper.getDB(context);
+        db.beginTransaction();
+        Cursor cur = db.query(TABLE, null, null, null, null, null, null);
         List<Board> ret = new ArrayList<Board>();
         while (cur.moveToNext()) {
-            ret.add(fromCursor(cur));
+            Board b = fromCursor(cur);
+            b.mLastActionTime = Action.getBoardLastActionTime(context, b.getId());
+            ret.add(b);
         }
         cur.close();
+        db.setTransactionSuccessful();
+        db.endTransaction();
         return ret;
     }
 
@@ -197,11 +209,11 @@ public class Board {
         mExtra = extra;
     }
 
-    public long getLastActionId() {
-        return mLastActionId;
+    public long getLastActionTime() {
+        return mLastActionTime;
     }
 
-    public void setLastActionId(long lastActionId) {
-        mLastActionId = lastActionId;
+    public void setLastActionTime(long lastActionTime) {
+        mLastActionTime = lastActionTime;
     }
 }

@@ -12,9 +12,12 @@ import com.datdo.mobilib.util.MblUtils;
 import com.datdo.mobilib.util.MblViewUtil;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
+import jp.co.mobilusers.boardmessenger.model.Action;
 import jp.co.mobilusers.boardmessenger.model.Board;
 import jp.co.mobilusers.boardmessenger.test.adapter.BoardAdapter;
 
@@ -31,6 +34,11 @@ public class BoardListActivity extends BaseActivity {
         @Override
         public void onNewBoard(Board board) {
             MblUtils.showToast("New board: " + board.getName(), Toast.LENGTH_SHORT);
+            reload();
+        }
+
+        @Override
+        public void onNewAction(Action action) {
             reload();
         }
     };
@@ -72,7 +80,21 @@ public class BoardListActivity extends BaseActivity {
     }
 
     private void reload() {
-        mAdapter.changeData(BoardMessenger.getInstance().getAllBoards());
+        List<Board> boards = BoardMessenger.getInstance().getAllBoards();
+        Collections.sort(boards, new Comparator<Board>() {
+            @Override
+            public int compare(Board b1, Board b2) {
+                long d = b2.getLastActionTime() - b1.getLastActionTime();
+                if (d < 0) {
+                    return -1;
+                }
+                if (d > 0) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        mAdapter.changeData(boards);
     }
 
     @Override
