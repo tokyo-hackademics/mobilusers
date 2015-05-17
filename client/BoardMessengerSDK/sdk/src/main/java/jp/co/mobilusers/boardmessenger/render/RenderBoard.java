@@ -298,7 +298,17 @@ public class RenderBoard extends SurfaceView {
             try {
                 File cacheDir = getContext().getCacheDir();
                 String path = cacheDir.getAbsolutePath() + "/" + mBoard.getId();
-                mRenderBitmap.compress(Bitmap.CompressFormat.JPEG, 25, new FileOutputStream(path));
+                final float SCALED_SIZE = 400;
+                float scaleFactor = Math.min(
+                        SCALED_SIZE / mRenderBitmap.getWidth(),
+                        SCALED_SIZE / mRenderBitmap.getHeight());
+                Bitmap smallBitmap = Bitmap.createScaledBitmap(
+                        mRenderBitmap,
+                        Math.round(mRenderBitmap.getWidth() * scaleFactor),
+                        Math.round(mRenderBitmap.getHeight() * scaleFactor),
+                        false);
+                smallBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(path));
+                smallBitmap.recycle();
             } catch (Throwable e) {
                 e.printStackTrace();
             }
