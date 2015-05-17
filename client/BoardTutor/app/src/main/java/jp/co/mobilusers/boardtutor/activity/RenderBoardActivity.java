@@ -1,10 +1,13 @@
 package jp.co.mobilusers.boardtutor.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 
 import com.datdo.mobilib.util.MblUtils;
 
@@ -15,6 +18,7 @@ import org.androidannotations.annotations.ViewById;
 
 import jp.co.mobilusers.boardmessenger.render.RenderBoard;
 import jp.co.mobilusers.boardtutor.R;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by huytran on 5/16/15.
@@ -31,6 +35,10 @@ public class RenderBoardActivity extends BaseActivity {
 
     @ViewById(R.id.erase_mode_button)
     View eraseModeButton;
+
+
+    @ViewById(R.id.select_color_button)
+    View selectColorButton;
 
     @AfterViews
     void initView(){
@@ -78,7 +86,7 @@ public class RenderBoardActivity extends BaseActivity {
         mRenderBoard.resume(new RenderBoard.ResumeCallback() {
             @Override
             public void onSuccess() {
-          //      MblUtils.hideProgressDialog();
+                //      MblUtils.hideProgressDialog();
             }
 
             @Override
@@ -93,5 +101,50 @@ public class RenderBoardActivity extends BaseActivity {
         Intent intent = new Intent(MblUtils.getCurrentContext(), RenderBoardActivity_.class);
         intent.putExtra(BOARD_ID, boardId);
         MblUtils.getCurrentContext().startActivity(intent);
+    }
+
+    @Click(R.id.select_color_button)
+    void selectColor() {
+        int initialColor = getResources().getColor(android.R.color.holo_red_dark);
+
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, initialColor, true, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                // color is the color selected by the user.
+               mRenderBoard.setColorRGB(color);
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                // cancel was selected by the user
+            }
+
+        });
+
+        dialog.show();
+    }
+
+    @Click(R.id.select_stroke_button)
+    void selectStroke() {
+        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_fix_stroke, null);
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        final SeekBar strokeSeekBar = (SeekBar) dialogView.findViewById(R.id.strokeSeek);
+
+        strokeSeekBar.setProgress((int) mRenderBoard.getStrokeWidthInDp());
+        strokeSeekBar.setMax(8);
+
+        dialogView.findViewById(R.id.setStrokeBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRenderBoard.setStrokeWidthInDp(strokeSeekBar.getProgress());
+                mRenderBoard.setEraseStrokeWidthInDp(strokeSeekBar.getProgress() * 2);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }

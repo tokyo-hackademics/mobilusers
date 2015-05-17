@@ -4,6 +4,7 @@
 package jp.co.mobilusers.boardtutor.adapter;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -83,11 +84,14 @@ public class BoardAdapter extends MblBaseAdapter<Board> {
 
     //Convert Time
     public static String getStandardTime(long timeInput){
+        if(timeInput < 0) {
+            return "";
+        }
         long currentTime = System.currentTimeMillis();
-        long delta = currentTime - timeInput * 1000;
+        long delta = currentTime - timeInput;
         if(delta >= 0 && delta < 10000){
             return delta/1000  + " seconds ago";
-        }else if(delta >= 10 && delta < 60000){
+        }else if(delta >= 10000 && delta < 60000){
             return "about a minute ago";
         }else if(delta >= 60000 && delta<3600000){
             return delta/1000/60  + " minutes ago";
