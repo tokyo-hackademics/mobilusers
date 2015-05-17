@@ -14,4 +14,5 @@
     <string name="login_error">ログインが失敗しました。</string>
     <string name="retry">リトライ</string>
     <string name="later">後で</string>
+    <string name="member_key">member</string>
 </resources>
