@@ -168,7 +168,7 @@ public class RenderBoardActivity extends BaseActivity {
         final SeekBar strokeSeekBar = (SeekBar) dialogView.findViewById(R.id.strokeSeek);
 
         strokeSeekBar.setProgress((int) mRenderBoard.getStrokeWidthInDp());
-        strokeSeekBar.setMax(8);
+        strokeSeekBar.setMax(20);
 
         dialogView.findViewById(R.id.setStrokeBtn).setOnClickListener(new View.OnClickListener() {
             @Override
