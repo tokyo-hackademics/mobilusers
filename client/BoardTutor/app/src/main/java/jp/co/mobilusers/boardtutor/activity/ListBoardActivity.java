@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import com.datdo.mobilib.util.MblUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.sromku.simple.fb.SimpleFacebook;
-import com.sromku.simple.fb.listeners.OnLogoutListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -46,9 +44,6 @@ public class ListBoardActivity extends BaseActivity {
     };
 
     private SlidingMenu menu ;
-
-
-    SimpleFacebook simpleFacebook;
 
     private void reload() {
         mAdapter.changeData(BoardMessenger.getInstance().getAllBoards());
@@ -98,28 +93,8 @@ public class ListBoardActivity extends BaseActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                simpleFacebook.logout(new OnLogoutListener() {
-                    @Override
-                    public void onLogout() {
-                        finish();
-                        startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
-                    }
-
-                    @Override
-                    public void onThinking() {
-
-                    }
-
-                    @Override
-                    public void onException(Throwable throwable) {
-
-                    }
-
-                    @Override
-                    public void onFail(String s) {
-
-                    }
-                });
+                finish();
+                startActivity(new Intent(ListBoardActivity.this, MainActivity_.class));
             }
         });
     }
@@ -128,7 +103,6 @@ public class ListBoardActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         reload();
-        simpleFacebook = SimpleFacebook.getInstance(this);
         if(menu != null && menu.isMenuShowing()){
             menu.showContent();
         }
@@ -149,7 +123,6 @@ public class ListBoardActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        simpleFacebook.onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

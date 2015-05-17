@@ -73,8 +73,6 @@ dependencies {
     compile project(":BoardMessengerSDK:sdk")
     compile project(":SlidingMenu-master:library")
     compile project(':mobilib:Mobilib')
-    compile files('libs/simple.facebook-2.2.jar')
-    compile project(":facebook-android-sdk-3.14:facebook")
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.yukuku:ambilwarna:2.0'
 }

@@ -12,9 +12,6 @@ import android.widget.Spinner;
 
 import com.datdo.mobilib.util.MblUtils;
 import com.datdo.mobilib.util.MblViewUtil;
-import com.sromku.simple.fb.SimpleFacebook;
-import com.sromku.simple.fb.entities.Profile;
-import com.sromku.simple.fb.listeners.OnFriendsListener;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -42,32 +39,11 @@ public class CreateBoardActivity extends BaseActivity {
 
     FriendAdapter friendAdapter;
 
-    SimpleFacebook simpleFacebook;
-
     private static String TAG = CreateBoardActivity.class.getName();
 
     BoardSize[] boardSizes = new BoardSize[3];
 
     BoardSize boardSize;
-
-    OnFriendsListener onFriendsListener = new OnFriendsListener() {
-        @Override
-        public void onComplete(List<Profile> response) {
-            super.onComplete(response);
-            Log.e(TAG, "friends count is " + response.size());
-            for(Profile profile : response){
-                Log.e(TAG, "data of friend :" +  profile.getFirstName() + ";" + profile.getLastName() + ";" + profile.getEmail()
-                + ";" + profile.getId());
-            }
-
-        }
-
-        @Override
-        public void onException(Throwable throwable) {
-            super.onException(throwable);
-            Log.e(TAG, "exception " + throwable.getMessage());
-        }
-    };
 
     @AfterInject
     void initData(){
@@ -141,7 +117,6 @@ public class CreateBoardActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        simpleFacebook = SimpleFacebook.getInstance(this);
     }
 
     String[] getListInvitedFriendId(){
@@ -225,7 +200,6 @@ public class CreateBoardActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        simpleFacebook.onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 

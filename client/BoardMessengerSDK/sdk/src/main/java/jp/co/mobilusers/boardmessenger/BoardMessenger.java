@@ -365,4 +365,5 @@ public class BoardMessenger {
         String path = cacheDir.getAbsolutePath() + "/" + boardId;
         return path;
     }
+
 }

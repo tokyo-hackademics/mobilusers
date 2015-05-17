@@ -60,7 +60,6 @@ public class FriendAdapter extends MblBaseAdapter<User> {
         final ImageView userIcon = (ImageView) view.findViewById(R.id.userIcon);
 
         if(user.getThumbnail() != null && !user.getThumbnail().isEmpty()) {
-//            Picasso.with(MblUtils.getCurrentContext()).load(user.getThumbnail()).into((ImageView) view.findViewById(R.id.userIcon));
             GoogleApi.downloadImage(user.getThumbnail(), new GoogleApi.DownloadImageCallback() {
                 @Override
                 public void onSuccess(String path) {

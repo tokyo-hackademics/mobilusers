@@ -4,9 +4,6 @@ import com.datdo.mobilib.base.MblBaseApplication;
 import com.datdo.mobilib.event.MblCommonEvents;
 import com.datdo.mobilib.event.MblEventCenter;
 import com.datdo.mobilib.event.MblEventListener;
-import com.sromku.simple.fb.Permission;
-import com.sromku.simple.fb.SimpleFacebook;
-import com.sromku.simple.fb.SimpleFacebookConfiguration;
 
 import jp.co.mobilusers.boardmessenger.BoardMessenger;
 import jp.co.mobilusers.boardtutor.auth.GoogleApi;
