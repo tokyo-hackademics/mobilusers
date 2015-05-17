@@ -200,7 +200,9 @@ public class RenderBoardActivity extends BaseActivity {
                     if (!path.startsWith("file:///")) {
                         path = "file:///" + path;
                     }
-                    Picasso.with(MblUtils.getCurrentContext()).load(path).into(userIcons[index]);
+                    Picasso.with(MblUtils.getCurrentContext()).load(path).placeholder(
+                            getResources().getDrawable(R.drawable.default_user_icon)
+                    ).into(userIcons[index]);
                 }
 
                 @Override
