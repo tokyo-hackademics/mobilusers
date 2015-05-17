@@ -17,8 +17,9 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000"
             android:text="Invite friends"
-            android:textColor="#FFF"
             />
 
         <ImageView
